@@ -3,15 +3,15 @@ class UsersController < ApplicationController
         @user = User.new(user_params)
 
         if @user.save
-            render status: :ok
+            render status: :created
         else
-            render json: { error: "User does not exist"}, status: :bad_request 
+            render json: { error: "User could not be created"}, status: :bad_request 
         end
     end
 
     private 
     
     def user_params
-        params.require(:username, :password)
+        params.permit(:username, :password)
     end
 end
